@@ -7,6 +7,7 @@ typedef struct	s_character
 {
   int		x;
   int		y;
+  int		player_number;
   int		bomb_power;
   int		speed;
   int		visible;

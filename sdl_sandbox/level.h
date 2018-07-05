@@ -13,6 +13,7 @@ enum		type
 {
   CHARACTER,
   WALL,
+  BRICK,
   BOMB,
   EMPTY
 };
