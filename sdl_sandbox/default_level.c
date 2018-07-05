@@ -1,4 +1,5 @@
 #include	"level.h"
+#include	"graphics.h"
 
 int		is_wall(int i, int j)
 {
@@ -23,4 +24,51 @@ int		is_brick(int i, int j)
 	  || (i == 12 && j != 1 && j != 11)
 	  || (i == 13 && (j == 4 || j == 5 || j == 7 || j == 8)));
 
+}
+
+int		*get_starting_position()
+{
+  static int	coords[2];
+
+  switch(g_player_number)
+  {
+  case 1:
+  default:
+    coords[0] = 1;
+    coords[1] = 1;
+    break;
+  case 2:
+    coords[0] = 13;
+    coords[1] = 1;
+    break;
+  case 3:
+    coords[0] = 1;
+    coords[1] = 11;
+    break;
+  case 4:
+    coords[0] = 13;
+    coords[1] = 11;
+    break;
+  }
+  return coords;
+}
+
+int		is_player_starting_position(int i, int j)
+{
+  int		*coords;
+
+  coords = get_starting_position();
+  return (i == coords[0] && j == coords[1]);
+}
+
+int		get_player_number_from_pos(int i, int j)
+{
+  if (i/32 == 1 && j/32 == 1)
+    return 1;
+  else if (i/32 == 13 && j/32 == 1)
+    return 2;
+  else if (i/32 == 1 && j/32 == 11)
+    return 3;
+  else
+    return 4;
 }

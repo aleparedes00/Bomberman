@@ -18,14 +18,17 @@ enum		type
   EMPTY
 };
 
-typedef union	u_element
+typedef struct	s_element
 {
   int		x;
   int		y;
   enum type	type;
-  t_character	*c;
-  t_wall	*w;
-  t_bomb	*b;
+  union
+  {
+    t_character	*c;
+    t_wall	*w;
+    t_bomb	*b;
+  }		u_elt;
 }		t_element;
 
 typedef struct	s_level

@@ -3,43 +3,62 @@
 #include	"level.h"
 #include	"default_level.h"
 
-int		draw_level(t_level *level)
+void		place_player(t_level *level, t_element **element, int x, int y)
 {
-  return (level != NULL); //temp
+  t_element	*e;
+  int		p_number;
+
+  e = *element;
+  p_number = get_player_number_from_pos(x, y);
+  e->u_elt.c = malloc(sizeof(t_character));
+  if (p_number == g_player_number)
+    g_player->character = e->u_elt.c;
+  e->u_elt.c->x = x;
+  e->u_elt.c->y = y;
+  e->u_elt.c->player_number = p_number;
+  e->u_elt.c->sprite = g_character[e->u_elt.c->player_number - 1][DOWN];
+  apply(e->u_elt.c->x, e->u_elt.c->y - 16, e->u_elt.c->sprite, level->map);
+  e->u_elt.c->visible = 1;
+}
+
+void		place_wall(t_level *level, t_element **element, int x, int y)
+{
+  t_element	*e;
+
+  e = *element;
+  e->u_elt.w = malloc(sizeof(t_wall));
+  e->u_elt.w->x = x;
+  e->u_elt.w->y = y;
+  switch(e->type)
+  {
+  case WALL:
+  default:
+    e->u_elt.w->breakable = 0;
+    e->u_elt.w->sprite = g_wall;
+    break;
+  case BRICK:
+    e->u_elt.w->breakable = 1;
+    e->u_elt.w->sprite = g_brick;
+    break;
+  }
+  apply(e->u_elt.w->x, e->u_elt.w->y, e->u_elt.w->sprite, level->map);
+  e->u_elt.w->visible = 1;
 }
 
 void		place_element(t_level *level, t_element **element, int x, int y)
 {
-  t_element	*elt;
+  t_element	*e;
 
-  elt = *element;
-  switch(elt->type)
+  e = *element;
+  switch(e->type)
   {
   case CHARACTER:
-    //apply(element->x, element->y, element->c->sprite, level->map);
+    place_player(level, element, x, y);
     break;
   case WALL:
-    elt->w = malloc(sizeof(t_wall));
-    elt->w->x = x;
-    elt->w->y = y;
-    elt->w->breakable = 0;
-    elt->w->sprite = g_wall;
-    apply(elt->w->x, elt->w->y, elt->w->sprite, level->map);
-    elt->w->visible = 1;
-    break;
   case BRICK:
-    elt->w = malloc(sizeof(t_wall));
-    elt->w->x = x;
-    elt->w->y = y;
-    elt->w->breakable = 1;
-    elt->w->sprite = g_brick;
-    apply(elt->w->x, elt->w->y, elt->w->sprite, level->map);
-    elt->w->visible = 1;
+    place_wall(level, element, x, y);
     break;
-  case BOMB:
-    //apply(element->x, element->y, element->c->sprite, level->map);
-    break;
-  case EMPTY:
   default:
     break;
   }
@@ -60,6 +79,8 @@ void		load_default_elements(t_level *level)
 	lvl->elements[i][j]->type = WALL;
       else if (is_brick(i, j))
 	lvl->elements[i][j]->type = BRICK;
+      else if (is_player_starting_position(i, j))
+	lvl->elements[i][j]->type = CHARACTER;
       else
 	lvl->elements[i][j]->type = EMPTY;
       place_element(lvl, &(lvl->elements[i][j]), i * 32, j * 32);

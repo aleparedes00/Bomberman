@@ -2,7 +2,7 @@
 #include	"character.h"
 #include	"graphics.h"
 
-void		move_character(enum key direction, t_character *character)
+void		move_character(int direction, t_character *character)
 {
   switch (direction)
   {
@@ -21,24 +21,24 @@ void		move_character(enum key direction, t_character *character)
   default:
     break;
   }
-  g_current_surface = g_key_surfaces[direction];
+  g_player->character->sprite = g_character[g_player_number][direction];
 }
 
-void		handle_player_input(SDL_Event e, t_character *character)
+void		handle_player_input(SDL_Event e)
 {
   switch (e.key.keysym.sym)
   {
   case SDLK_UP:
-    move_character(UP, character);
+    move_character(UP, g_player->character);
     break;
   case SDLK_DOWN:
-    move_character(DOWN, character);
+    move_character(DOWN, g_player->character);
     break;
   case SDLK_LEFT:
-    move_character(LEFT, character);
+    move_character(LEFT, g_player->character);
     break;
   case SDLK_RIGHT:
-    move_character(RIGHT, character);
+    move_character(RIGHT, g_player->character);
     break;
   default:
     break;
