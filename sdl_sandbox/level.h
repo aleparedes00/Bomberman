@@ -9,7 +9,7 @@
 #define		LEVEL_WIDTH 15
 #define		LEVEL_HEIGHT 13
 
-enum		element_type
+enum		type
 {
   CHARACTER,
   WALL,
@@ -21,7 +21,7 @@ typedef union	u_element
 {
   int		x;
   int		y;
-  int		type;
+  enum type	type;
   t_character	*c;
   t_wall	*w;
   t_bomb	*b;

@@ -11,6 +11,7 @@ typedef struct	s_character
   int		speed;
   int		visible;
   SDL_Surface	*sprite;
+  SDL_Rect	*collision_box;
 }		t_character;
 
 void		handle_player_input(SDL_Event e, t_character *character);

@@ -10,12 +10,14 @@ typedef struct	s_bomb
   int		power;
   int		visible;
   SDL_Surface	*sprite;
+  SDL_Rect	*collision_box;
 }		t_bomb;
 
 typedef struct	s_flame
 {
   int		visible;
   SDL_Surface	*sprite;
+  SDL_Rect	*collision_box;
 }		t_flame;
 
 #endif		/* !_BOMB_H_ */

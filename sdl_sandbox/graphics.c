@@ -46,7 +46,6 @@ int		load_media()
 
 void		apply(int x, int y, SDL_Surface *src, SDL_Surface *dst)
 {
-  printf("enter apply\n");
   SDL_Rect	offset;
 
   offset.x = x;

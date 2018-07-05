@@ -4,68 +4,73 @@
 
 int		draw_level(t_level *level)
 {
-  return (level != NULL);
+  return (level != NULL); //temp
 }
 
-void		place_element(t_level *level, t_element *element)
+void		place_element(t_level *level, t_element **element, int x, int y)
 {
-  switch(element->type)
+  t_element	*elt;
+
+  elt = *element;
+  switch(elt->type)
   {
   case CHARACTER:
     //apply(element->x, element->y, element->c->sprite, level->map);
     break;
   case WALL:
-    printf("wall: %d\n", element->type);
-    printf("w defined: %d\n", (element->w != NULL));
-    //printf("w->x defined: %d\n", (element->w->x != NULL));
-    //printf("w->y defined: %d\n", (element->w->y != NULL));
-    //printf("w->sprite defined: %d\n", (element->w->sprite != NULL));
-    printf("level->map defined: %d\n", (level->map != NULL));
-    apply(element->w->x, element->w->y, g_wall, level->map);
-    printf("applied");
+    printf("wall: %d\n", elt->type);
+    printf("w: %p\n", elt->w);
+    elt->w = malloc(sizeof(t_wall));
+    elt->w->x = x;
+    elt->w->y = y;
+    elt->w->sprite = g_wall;
+    printf("w: %p\n", elt->w);
+    printf("x: %d\n", x);
+    printf("y: %d\n", y);
+    apply(elt->w->x, elt->w->y, elt->w->sprite, level->map);
+    printf("applied\n");
     break;
   case BOMB:
     //apply(element->x, element->y, element->c->sprite, level->map);
     break;
   case EMPTY:
   default:
-    printf("default: %d\n", element->type);
+    printf("default: %d\n", elt->type);
     break;
   }
 }
 
 void		load_default_elements(t_level *level)
 {
+  t_level	*lvl;
   int		i;
   int		j;
 
+  lvl = level;
   for (i = 0; i < LEVEL_WIDTH; i++)
   {
     for (j = 0; j < LEVEL_HEIGHT; j++)
     {
+      //lvl->elements[i][j]->x = i * 32;
+      //printf("x: %d\n", lvl->elements[i][j]->x);
+      //lvl->elements[i][j]->y = j * 32;
+      //printf("x after y: %d\n", lvl->elements[i][j]->x);
       if (i == 0 || i == LEVEL_WIDTH - 1
 	  || j == 0 || j == LEVEL_HEIGHT - 1
 	  || (i % 2 == 0 && j % 2 == 0))
       {
-	//printf("type set to wall: %d\n", WALL);
-	//printf("type check: %d\n", level->elements[i][j]->type);
-	level->elements[i][j]->w = malloc(sizeof(t_wall));
-	//printf("type check: %d\n", level->elements[i][j]->type);
-	printf("g_wall is defined: %d\n", (g_wall != NULL));
-	level->elements[i][j]->w->sprite = g_wall;
-	printf("w->sprite is defined: %d\n", (level->elements[i][j]->w->sprite != NULL));
-	level->elements[i][j]->w->x = i * 32;
-	level->elements[i][j]->w->y = j * 32;
-	level->elements[i][j]->type = WALL;
-	printf("type check: %d\n", level->elements[i][j]->type);
+	lvl->elements[i][j]->type = WALL;
+	//lvl->elements[i][j]->w = malloc(sizeof(t_wall));
+	//lvl->elements[i][j]->w->sprite = g_wall;
       } else
+      {
+	lvl->elements[i][j]->type = EMPTY;
+      }
+      if (lvl->elements[i][j]->type != EMPTY)
 	{
-	  printf("set to default, ");
-	level->elements[i][j]->type = EMPTY;
-	printf("default successful, ");
+	place_element(lvl, &(lvl->elements[i][j]), i * 32, j * 32);
+	printf("w: %p\n", lvl->elements[i][j]->w);
 	}
-      if (level->elements[i][j]->type != EMPTY)
-	place_element(level, level->elements[i][j]);
     }
   }
 }
