@@ -1,3 +1,13 @@
+/*
+** graphics.h for Bomberman in /home/darts
+**
+** Made by HYVERNAUD Alexandre
+** Login   <hyvern_a@etna-alternance.net>
+**
+** Started on  Thu Jul  5 20:10:17 2018 HYVERNAUD Alexandre
+** Last update Thu Jul  5 20:33:00 2018 HYVERNAUD Alexandre
+*/
+
 #ifndef		_GRAPHICS_H_
 # define	_GRAPHICS_H_
 
@@ -25,8 +35,6 @@ SDL_Surface	*g_window;
 
 SDL_Surface	*g_screen;
 
-SDL_Surface	*g_background;
-
 SDL_Surface	*g_character[TOTAL_PLAYERS][4];
 
 SDL_Surface	*g_wall;
@@ -34,6 +42,8 @@ SDL_Surface	*g_wall;
 SDL_Surface	*g_brick;
 
 SDL_Surface	*g_bomb;
+
+t_character	*g_characters[TOTAL_PLAYERS];
 
 typedef struct	s_player
 {

@@ -1,9 +1,19 @@
+/*
+** initialize_level.c for Bomberman in /home/darts
+**
+** Made by HYVERNAUD Alexandre
+** Login   <hyvern_a@etna-alternance.net>
+**
+** Started on  Thu Jul  5 19:40:08 2018 HYVERNAUD Alexandre
+** Last update Thu Jul  5 20:37:43 2018 HYVERNAUD Alexandre
+*/
+
 #include	<SDL/SDL.h>
 #include	"graphics.h"
-#include	"level.h"
+#include	"initialize_level.h"
 #include	"default_level.h"
 
-void		place_player(t_level *level, t_element **element, int x, int y)
+void		place_player(t_element **element, int x, int y)
 {
   t_element	*e;
   int		p_number;
@@ -13,17 +23,19 @@ void		place_player(t_level *level, t_element **element, int x, int y)
   e->u_elt.c = malloc(sizeof(t_character));
   if (p_number == g_player_number)
     g_player->character = e->u_elt.c;
+  g_characters[p_number - 1] = e->u_elt.c;
   e->u_elt.c->x = x;
   e->u_elt.c->y = y;
+  e->u_elt.c->xvel = 0;
+  e->u_elt.c->yvel = 0;
   e->u_elt.c->player_number = p_number;
   e->u_elt.c->bomb_power = 1;
   e->u_elt.c->speed = 1;
   e->u_elt.c->sprite = g_character[e->u_elt.c->player_number - 1][DOWN];
-  apply(e->u_elt.c->x, e->u_elt.c->y - 16, e->u_elt.c->sprite, level->map);
   e->u_elt.c->visible = 1;
 }
 
-void		place_wall(t_level *level, t_element **element, int x, int y)
+void		place_wall(t_element **element, int x, int y)
 {
   t_element	*e;
 
@@ -43,11 +55,10 @@ void		place_wall(t_level *level, t_element **element, int x, int y)
     e->u_elt.w->sprite = g_brick;
     break;
   }
-  apply(e->u_elt.w->x, e->u_elt.w->y, e->u_elt.w->sprite, level->map);
   e->u_elt.w->visible = 1;
 }
 
-void		place_element(t_level *level, t_element **element, int x, int y)
+void		place_element(t_element **element, int x, int y)
 {
   t_element	*e;
 
@@ -55,11 +66,11 @@ void		place_element(t_level *level, t_element **element, int x, int y)
   switch(e->type)
   {
   case CHARACTER:
-    place_player(level, element, x, y);
+    place_player(element, x, y);
     break;
   case WALL:
   case BRICK:
-    place_wall(level, element, x, y);
+    place_wall(element, x, y);
     break;
   default:
     break;
@@ -85,7 +96,7 @@ void		load_default_elements(t_level *level)
 	lvl->elements[i][j]->type = CHARACTER;
       else
 	lvl->elements[i][j]->type = EMPTY;
-      place_element(lvl, &(lvl->elements[i][j]), i * 32, j * 32);
+      place_element(&(lvl->elements[i][j]), i * 32, j * 32);
     }
   }
 }

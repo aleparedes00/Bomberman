@@ -2,48 +2,42 @@
 #include	"character.h"
 #include	"graphics.h"
 
-void		move_character(int direction, t_character *character)
+void		move_character(t_character *character)
 {
-  printf("start pos: %d,%d\n", character->x, character->y);
-  switch (direction)
-  {
-  case UP:
-    character->y -= 10 * character->speed;
-    break;
-  case DOWN:
-    character->y += 10 * character->speed;
-    break;
-  case LEFT:
-    character->x -= 10 * character->speed;
-    break;
-  case RIGHT:
-    character->x += 10 * character->speed;
-    break;
-  default:
-    break;
-  }
-  printf("new pos: %d,%d\n", character->x, character->y);
-  character->sprite = g_character[character->player_number - 1][direction];
-  apply(character->x, character->y, character->sprite, g_screen);
+  character->x += character->xvel;
+  character->y += character->yvel;
 }
 
 void		handle_player_input(SDL_Event e)
 {
-  switch (e.key.keysym.sym)
+  if (e.type == SDL_KEYDOWN)
   {
-  case SDLK_UP:
-    move_character(UP, g_player->character);
-    break;
-  case SDLK_DOWN:
-    move_character(DOWN, g_player->character);
-    break;
-  case SDLK_LEFT:
-    move_character(LEFT, g_player->character);
-    break;
-  case SDLK_RIGHT:
-    move_character(RIGHT, g_player->character);
-    break;
-  default:
-    break;
+    switch (e.key.keysym.sym)
+    {
+    case SDLK_UP:
+      g_player->character->sprite = g_character[g_player_number - 1][UP];
+      g_player->character->yvel -= 8; break;
+    case SDLK_DOWN:
+      g_player->character->sprite = g_character[g_player_number - 1][DOWN];
+      g_player->character->yvel += 8; break;
+    case SDLK_LEFT:
+      g_player->character->sprite = g_character[g_player_number - 1][LEFT];
+      g_player->character->xvel -= 8; break;
+    case SDLK_RIGHT:
+      g_player->character->sprite = g_character[g_player_number - 1][RIGHT];
+      g_player->character->xvel += 8; break;
+    default: break;
+    }
+  }
+  else if (e.type == SDL_KEYUP)
+  {
+    switch (e.key.keysym.sym)
+    {
+    case SDLK_UP: g_player->character->yvel += 8; break;
+    case SDLK_DOWN: g_player->character->yvel -= 8; break;
+    case SDLK_LEFT: g_player->character->xvel += 8; break;
+    case SDLK_RIGHT: g_player->character->xvel -= 8; break;
+    default: break;
+    }
   }
 }

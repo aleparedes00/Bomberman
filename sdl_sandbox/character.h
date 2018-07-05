@@ -19,4 +19,6 @@ typedef struct	s_character
 
 void		handle_player_input(SDL_Event e);
 
+void		move_character(t_character *character);
+
 #endif		/* !_CHARACTER_H_ */

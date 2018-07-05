@@ -1,3 +1,13 @@
+/*
+** graphics.c for Bomberman in /home/darts
+**
+** Made by HYVERNAUD Alexandre
+** Login   <hyvern_a@etna-alternance.net>
+**
+** Started on  Thu Jul  5 20:20:36 2018 HYVERNAUD Alexandre
+** Last update Thu Jul  5 20:21:55 2018 HYVERNAUD Alexandre
+*/
+
 #include	<SDL/SDL.h>
 #include	<SDL/SDL_image.h>
 #include	<graphics.h>

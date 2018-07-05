@@ -1,4 +1,4 @@
-#include	"level.h"
+#include	"initialize_level.h"
 #include	"graphics.h"
 
 int		is_wall(int i, int j)
