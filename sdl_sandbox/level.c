@@ -16,6 +16,8 @@ void		place_player(t_level *level, t_element **element, int x, int y)
   e->u_elt.c->x = x;
   e->u_elt.c->y = y;
   e->u_elt.c->player_number = p_number;
+  e->u_elt.c->bomb_power = 1;
+  e->u_elt.c->speed = 1;
   e->u_elt.c->sprite = g_character[e->u_elt.c->player_number - 1][DOWN];
   apply(e->u_elt.c->x, e->u_elt.c->y - 16, e->u_elt.c->sprite, level->map);
   e->u_elt.c->visible = 1;

@@ -4,6 +4,7 @@
 
 void		move_character(int direction, t_character *character)
 {
+  printf("start pos: %d,%d\n", character->x, character->y);
   switch (direction)
   {
   case UP:
@@ -21,7 +22,9 @@ void		move_character(int direction, t_character *character)
   default:
     break;
   }
-  g_player->character->sprite = g_character[g_player_number][direction];
+  printf("new pos: %d,%d\n", character->x, character->y);
+  character->sprite = g_character[character->player_number - 1][direction];
+  apply(character->x, character->y, character->sprite, g_screen);
 }
 
 void		handle_player_input(SDL_Event e)

@@ -1,1 +1,0 @@
-still a WIP, loading wall sprites needs fixing
