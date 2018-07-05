@@ -1,3 +1,13 @@
+/*
+** character.h for Bomberman in /home/darts
+**
+** Made by HYVERNAUD Alexandre
+** Login   <hyvern_a@etna-alternance.net>
+**
+** Started on  Thu Jul  5 21:18:46 2018 HYVERNAUD Alexandre
+** Last update Thu Jul  5 21:18:48 2018 HYVERNAUD Alexandre
+*/
+
 #ifndef		_CHARACTER_H_
 # define	_CHARACTER_H_
 

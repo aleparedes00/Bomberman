@@ -1,5 +1,5 @@
 /*
-** tutorial.c for Bomberman in /home/darts
+** sdl_main.c for Bomberman in /home/darts
 **
 ** Made by HYVERNAUD Alexandre
 ** Login   <hyvern_a@etna-alternance.net>

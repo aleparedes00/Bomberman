@@ -1,3 +1,13 @@
+/*
+** initialize_level.h for Bomberman in /home/darts
+**
+** Made by HYVERNAUD Alexandre
+** Login   <hyvern_a@etna-alternance.net>
+**
+** Started on  Thu Jul  5 21:19:30 2018 HYVERNAUD Alexandre
+** Last update Thu Jul  5 21:19:32 2018 HYVERNAUD Alexandre
+*/
+
 #ifndef		_LEVEL_H_
 # define	_LEVEL_H_
 
